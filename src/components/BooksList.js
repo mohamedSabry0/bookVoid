@@ -1,21 +1,16 @@
-import { useState } from 'react';
-import BookForm from './BookForm';
+import { useSelector } from 'react-redux';
 import Book from './Book';
+import toCamelCasedKey from '../util/util';
 
 const BooksList = () => {
-  const [books, setBooks] = useState([
-    { title: 'Book 2', author: 'auth 2' },
-    { title: 'Book 1', author: 'auth 1' },
-  ]);
+  const books = useSelector((state) => state.books.books);
   return (
-    <div>
+    <>
       {books.map((book) => {
-        const { title, author } = book;
-        return <Book key={title} title={title} author={author} />;
+        const { title, author, itemId } = toCamelCasedKey(book);
+        return <Book key={itemId} id={itemId} title={title} author={author} />;
       })}
-
-      <BookForm setBooks={setBooks} />
-    </div>
+    </>
   );
 };
 
