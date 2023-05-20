@@ -10,7 +10,7 @@ export default function BookForm() {
     const title = form.title.value;
     const author = form.author.value;
     const itemId = uuidv4();
-    const category = 'Action';
+    const category = form.category.value;
 
     dispatch(addBook({
       item_id: itemId, title, author, category,
@@ -22,9 +22,31 @@ export default function BookForm() {
   return (
     <>
       <form method="post" onSubmit={handleSubmit}>
-        <input name="title" placeholder="title" />
-        <input name="author" placeholder="author" />
-        <button type="submit"> Add </button>
+        <h3>ADD NEW BOOK</h3>
+        <label htmlFor="title">
+          <input
+            id="title"
+            name="title"
+            placeholder="Book title"
+          />
+        </label>
+        <label htmlFor="author">
+          <input
+            id="author"
+            name="author"
+            placeholder="Author"
+          />
+        </label>
+        <label htmlFor="category">
+          <select
+            name="category"
+          >
+            <option value="Action" selected>Action</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Economy">Economy</option>
+          </select>
+        </label>
+        <button type="submit" className="add-button"> Add </button>
       </form>
     </>
   );
