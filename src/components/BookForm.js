@@ -24,7 +24,7 @@ export default function BookForm() {
       <form method="post" onSubmit={handleSubmit}>
         <input name="title" placeholder="title" />
         <input name="author" placeholder="author" />
-        <button type="submit"> Add </button>
+        <button type="submit" className="add-button"> Add </button>
       </form>
     </>
   );
