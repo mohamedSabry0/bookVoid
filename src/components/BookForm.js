@@ -4,7 +4,6 @@ import { addBook } from '../redux/books/booksSlice';
 
 export default function BookForm() {
   const dispatch = useDispatch();
-  // const { error, status, message } = useSelector(booksState);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;

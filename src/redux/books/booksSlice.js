@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { unique } from '../../util/util';
-import { fetchBooks, addBook } from './booksThunk';
+import { fetchBooks, addBook, removeBook } from './booksThunk';
 
 const initialState = {
   books: [],
@@ -15,12 +15,7 @@ const isRejectedAction = (action) => action.type.endsWith('/rejected');
 const booksSlice = createSlice({
   name: 'books',
   initialState,
-  reducers: {
-    removeBook: (state, action) => ({
-      ...state,
-      books: state.books.filter((book) => book.item_id !== action.payload),
-    }),
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
 
@@ -29,6 +24,12 @@ const booksSlice = createSlice({
         // TODO: handle (should be redundant) render => the cause was strict mode
         books: unique(action.payload, state.books),
         status: 'succeeded',
+      }))
+      .addCase(removeBook.fulfilled, (state, action) => ({
+        ...state,
+        books: [...state.books.filter((item) => item.item_id !== action.payload.id)],
+        status: 'succeeded',
+        message: action.payload.response,
       }))
       .addCase(addBook.fulfilled, (state, action) => ({
         ...state,
@@ -49,6 +50,5 @@ const booksSlice = createSlice({
 });
 
 export const booksState = (state) => state.books;
-export const { removeBook } = booksSlice.actions;
-export { fetchBooks, addBook };
+export { fetchBooks, addBook, removeBook };
 export default booksSlice.reducer;
