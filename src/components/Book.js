@@ -11,7 +11,7 @@ function Book({
   };
 
   return (
-    <div id={id} className="book">
+    <div className="book">
       <div>
         <span className="book-category">{category}</span>
         <span className="book-title">{title}</span>
@@ -30,7 +30,20 @@ function Book({
 
           <button type="button">Edit</button>
         </div>
-
+      </div>
+      <div className="progress-section">
+        <div className="progress-chart">
+          <div className="oval" />
+          <div>
+            <span className="progress-percentage">64%</span>
+            <span className="completed-text">Completed</span>
+          </div>
+        </div>
+        <div className="current-section">
+          <span className="current-heading">CURRENT CHAPTER</span>
+          <span className="current-chapter">Chapter 17</span>
+          <button type="button">UPDATE PROGRESS</button>
+        </div>
       </div>
     </div>
   );
