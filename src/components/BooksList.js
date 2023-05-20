@@ -1,22 +1,42 @@
-import { useState } from 'react';
-import BookForm from './BookForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import Book from './Book';
+import { toCamelCasedKey } from '../util/util';
+import { booksState, fetchBooks } from '../redux/books/booksSlice';
 
-const BooksList = () => {
-  const [books, setBooks] = useState([
-    { title: 'Book 2', author: 'auth 2' },
-    { title: 'Book 1', author: 'auth 1' },
-  ]);
-  return (
-    <div>
-      {books.map((book) => {
-        const { title, author } = book;
-        return <Book key={title} title={title} author={author} />;
-      })}
+function BooksList() {
+  const dispatch = useDispatch();
+  const { books, error, status } = useSelector(booksState);
 
-      <BookForm setBooks={setBooks} />
-    </div>
-  );
-};
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchBooks());
+    }
+  }, [dispatch, status]);
+
+  if (status === 'succeeded') {
+    return (
+      <div className="books-list">
+        {books.map((book) => {
+          const {
+            title, author, itemId, category,
+          } = toCamelCasedKey(book);
+          return (
+            <Book
+              key={itemId}
+              id={itemId}
+              category={category}
+              title={title}
+              author={author}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+  if (status === 'failed') {
+    return (<p>{ error }</p>);
+  }
+}
 
 export default BooksList;
