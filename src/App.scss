@@ -1,2 +1,8 @@
+@import './styles/nav';
 @import './styles/spinner';
 @import './styles/form';
+
+#root {
+  background-color: $z;
+  width: 100vw;
+}
