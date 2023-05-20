@@ -2,12 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Book from './Book';
 import { toCamelCasedKey } from '../util/util';
-import { booksState } from '../redux/books/booksSlice';
-import fetchBooks from '../redux/books/booksThunk';
+import { booksState, fetchBooks } from '../redux/books/booksSlice';
 
-const BooksList = () => {
+function BooksList() {
   const dispatch = useDispatch();
-  // const books = useSelector((state) => state.books.books);
   const { books, error, status } = useSelector(booksState);
 
   useEffect(() => {
@@ -39,8 +37,6 @@ const BooksList = () => {
   if (status === 'failed') {
     return (<p>{ error }</p>);
   }
-
-  return (<p>Loading...</p>);
-};
+}
 
 export default BooksList;
