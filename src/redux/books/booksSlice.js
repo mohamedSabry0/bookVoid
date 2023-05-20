@@ -1,27 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { unique } from '../../util/util';
+import fetchBooks from './booksThunk';
 
 const initialState = {
-  books:
-  [
-    {
-      item_id: 'item1',
-      title: 'The Great Gatsby',
-      author: 'John Smith',
-      category: 'Fiction',
-    },
-    {
-      item_id: 'item2',
-      title: 'Anna Karenina',
-      author: 'Leo Tolstoy',
-      category: 'Fiction',
-    },
-    {
-      item_id: 'item3',
-      title: 'The Selfish Gene',
-      author: 'Richard Dawkins',
-      category: 'Nonfiction',
-    },
-  ],
+  books: [],
+  status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
+  error: null,
 };
 
 const booksSlice = createSlice({
@@ -36,7 +20,19 @@ const booksSlice = createSlice({
       books: state.books.filter((book) => book.item_id !== action.payload),
     }),
   },
+  extraReducers(builder) {
+    builder
+
+      .addCase(fetchBooks.fulfilled, (state, action) => ({
+        ...state,
+        // TODO: handle (should be redundant) render => the cause was strict mode
+        books: unique(action.payload, state.books),
+        status: 'succeeded',
+      }));
+  },
 });
 
+export const booksState = (state) => state.books;
 export const { addBook, removeBook } = booksSlice.actions;
+
 export default booksSlice.reducer;
