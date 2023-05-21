@@ -1,0 +1,58 @@
+@import './colors';
+@import './fonts';
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.813rem 4rem;
+  background-color: $white-two;
+  align-items: center;
+
+  div {
+    display: flex;
+    align-items: center;
+    width: 45%;
+
+    .logo {
+      color: $azure;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      padding-left: 8%;
+
+      a {
+        color: #121212;
+        opacity: 50%;
+        text-decoration: none;
+        padding: 0.8rem;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 1.9px;
+        font-size: 0.813rem;
+
+        &.active {
+          opacity: 100%;
+        }
+      }
+    }
+  }
+
+  .profile-button {
+    display: flex;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    border-radius: 50%;
+    border: solid 1px $white;
+
+    img {
+      width: 1.063rem;
+      height: 1.063rem;
+    }
+  }
+}
